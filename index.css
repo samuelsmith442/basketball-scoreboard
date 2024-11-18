@@ -3,35 +3,37 @@
     src: url(fonts/CursedTimerUlil-Aznm.ttf);
 }
 
-
-
+:root {
+    --background-color: #1B244A;
+    --text-color: #eee;
+    --score-color: #F94F6D;
+    --button-color: #1B244A;
+    --button-hover-color: #0056b3;
+    --border-color: #9AABD8;
+}
 
 body {
-    
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #1B244A;
-    
+    background: var(--background-color);
 }
 
 .container {
-    
     max-width: 900px;
-    
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .scoreboard {
     display: flex;
     justify-content: space-around;
     padding: 20px;
-    
 }
 
 .team {
-
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center .team content vertically */
+    align-items: center;
     padding: 20px;
     border-radius: 10px;
 }
@@ -39,19 +41,19 @@ body {
 h2 {
     font-size: 50px;
     margin: 10px 0;
-    color: #eee;
+    color: var(--text-color);
 }
 
 .score {
-     display: flex; /* Center horizontally */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: Cursed Timer ULiL;
     font-size: 90px;
     font-weight: bold;
     margin: 10px 0;
     background-color: #000;
-    color: #F94F6D; /* Pink color */
+    color: var(--score-color);
     border-radius: 5px;
     padding: 40px;
     text-align: center;
@@ -70,16 +72,84 @@ h2 {
     font-family: Cursed Timer ULiL;
     font-size: 20px;
     padding: 5px 10px;
-    
-    
     border-radius: 5px;
     cursor: pointer;
-    background-color: #1B244A;
+    background-color: var(--button-color);
     color: white;
-    border-radius: 5px;
-    border: 2px solid #9AABD8;
+    border: 2px solid var(--border-color);
 }
 
 .point:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-color);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .scoreboard {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .team {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    .score {
+        font-size: 70px;
+        padding: 30px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .buttons {
+        margin-top: 10px;
+    }
+
+    .point {
+        font-size: 18px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .scoreboard {
+        padding: 5px;
+    }
+
+    .team {
+        padding: 5px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .score {
+        font-size: 50px;
+        padding: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .buttons {
+        margin-top: 5px;
+    }
+
+    .point {
+        font-size: 16px;
+        padding: 3px 6px;
+    }
 }
