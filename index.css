@@ -10,24 +10,67 @@
     --button-color: #1B244A;
     --button-hover-color: #0056b3;
     --border-color: #9AABD8;
+    --home-team-color: #F94F6D;
+    --away-team-color: #00FF85;
+    --timer-color: #F9A74F;
+    --period-color: #4F9FF9;
 }
 
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/basketball.png');
+    background-blend-mode: overlay;
 }
 
 .container {
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bounce {
+    display: inline-block;
+    animation: bounce 1s infinite alternate;
+    color: #FF8C00;
+    margin-right: 10px;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
 }
 
 .scoreboard {
     display: flex;
     justify-content: space-around;
     padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
 }
 
 .team {
@@ -36,12 +79,53 @@ body {
     align-items: center;
     padding: 20px;
     border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 45%;
+}
+
+.team:hover {
+    transform: translateY(-5px);
+}
+
+.team-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 50px;
+    font-size: 40px;
     margin: 10px 0;
     color: var(--text-color);
+}
+
+.team-name {
+    border: 2px dashed transparent;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.team-name:hover {
+    border-color: var(--border-color);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.color-picker {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.color-picker:hover {
+    transform: rotate(30deg);
 }
 
 .score {
@@ -54,11 +138,25 @@ h2 {
     margin: 10px 0;
     background-color: #000;
     color: var(--score-color);
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 40px;
     text-align: center;
     width: 60px;
     height: 60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.score.highlight {
+    animation: score-pulse 0.5s ease;
+}
+
+@keyframes score-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .buttons {
@@ -71,16 +169,180 @@ h2 {
 .point {
     font-family: Cursed Timer ULiL;
     font-size: 20px;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 15px;
+    border-radius: 8px;
     cursor: pointer;
     background-color: var(--button-color);
     color: white;
     border: 2px solid var(--border-color);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .point:hover {
     background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.point:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.fouls {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.foul-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.foul-btn:hover {
+    background-color: #c9302c;
+    transform: scale(1.1);
+}
+
+.timer-container, .period-container {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.timer-display {
+    font-family: Cursed Timer ULiL;
+    font-size: 40px;
+    color: var(--timer-color);
+    margin-bottom: 10px;
+}
+
+.period-display {
+    font-family: Cursed Timer ULiL;
+    font-size: 40px;
+    color: var(--period-color);
+    margin: 10px 0;
+}
+
+.timer-controls, .period-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.timer-controls button, .period-controls button {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timer-controls button:hover, .period-controls button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#reset-game {
+    background-color: #d9534f;
+}
+
+#reset-game:hover {
+    background-color: #c9302c;
+}
+
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.game-history {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.history-list {
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+
+.history-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.score-animation {
+    position: absolute;
+    font-family: Cursed Timer ULiL;
+    font-weight: bold;
+    opacity: 0;
+    animation: score-float 1s ease-out forwards;
+}
+
+@keyframes score-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
 }
 
 /* Media Queries for Responsiveness */
@@ -90,17 +352,29 @@ h2 {
         padding: 10px;
     }
 
+    .title {
+        font-size: 2rem;
+    }
+
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+
     .scoreboard {
         flex-direction: column;
         padding: 10px;
+        align-items: center;
     }
 
     .team {
-        padding: 10px;
+        padding: 15px;
+        width: 90%;
+        margin-bottom: 15px;
     }
 
     h2 {
-        font-size: 40px;
+        font-size: 35px;
     }
 
     .score {
@@ -116,7 +390,12 @@ h2 {
 
     .point {
         font-size: 18px;
-        padding: 4px 8px;
+        padding: 6px 12px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
@@ -125,12 +404,16 @@ h2 {
         padding: 5px;
     }
 
+    .title {
+        font-size: 1.5rem;
+    }
+
     .scoreboard {
         padding: 5px;
     }
 
     .team {
-        padding: 5px;
+        padding: 10px;
     }
 
     h2 {
@@ -150,6 +433,10 @@ h2 {
 
     .point {
         font-size: 16px;
-        padding: 3px 6px;
+        padding: 4px 8px;
+    }
+
+    .timer-display, .period-display {
+        font-size: 30px;
     }
 }
